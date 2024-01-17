@@ -5,33 +5,19 @@ import {useContext} from "react"
 
 export default function TodoList() {
  
-  const {todoList,setTodoList} = useContext(TodoContext);
-  console.log(todoList);
+  const {todoList,dispatch} = useContext(TodoContext);
+ 
   function onDeleteTodo(id){
-    const newTodo = todoList.filter((todo)=>todo.id!=id);
-    setTodoList(newTodo);
+    dispatch({type:"delete_todo",payload:{id}});
   }
 
   function onEditTodo(id,text){
-    const newTodo = todoList.map(todo=>{
-      if(todo.id==id){
-         todo.text = text;
-      }
-      return todo
-    });
-    setTodoList(newTodo);
+    dispatch({type:"edit_todo",payload:{id,text}});
   }
 
   function onIsFinished(id,state){
-    const newTodo = todoList.map(todo=>{
-      if(todo.id==id){
-         todo.isFinished = state;
-      }
-      return todo
-    });
-    setTodoList(newTodo);
+    dispatch({type:"delete_todo",payload:{id,state}});
   }
-
 
   return (
     todoList && todoList.map(
